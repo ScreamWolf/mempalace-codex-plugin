@@ -219,5 +219,6 @@ __marimo__/
 
 # Local plugin runtime state and developer configuration
 .local/
+.serena/
 diagnostics/
 .diagnostics/
