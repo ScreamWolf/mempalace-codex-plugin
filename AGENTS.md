@@ -9,6 +9,16 @@ This repository is the Codex-specific integration layer for MemPalace. It replac
 - Keep `.mcp.json` and the copied upstream skills behaviorally aligned with the tested release, and re-test after upstream upgrades.
 - Record each intentional divergence from upstream in the README and tests.
 
+## Curated memory rooms
+
+For this project's MemPalace wing, use only these rooms:
+
+- `architecture` — confirmed plugin boundaries, integration decisions, and configuration contracts.
+- `compatibility` — verified upstream/Codex versions, compatibility findings, and intentional divergences.
+- `diary` — automatic verbatim session archives for traceability; do not use it as curated project guidance.
+
+Create curated memories only for durable, confirmed facts. Current repository files and explicit user instructions take precedence over recalled memory.
+
 ## Responsibilities
 
 - The MemPalace CLI/MCP owns storage, search, checkpoints, and knowledge-graph behavior.
