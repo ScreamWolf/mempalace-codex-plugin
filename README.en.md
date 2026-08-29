@@ -58,6 +58,7 @@ Confirm both commands resolve:
 ```bash
 command -v mempalace-mcp
 command -v mempalace-codex-hook
+command -v mempalace-codex-mcp
 ```
 
 If your system does not add uv's tool directory to `PATH`, fix that environment setting before installing the plugin.

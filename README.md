@@ -58,6 +58,7 @@ uv tool install "git+https://github.com/ScreamWolf/mempalace-codex-plugin.git@ma
 ```bash
 command -v mempalace-mcp
 command -v mempalace-codex-hook
+command -v mempalace-codex-mcp
 ```
 
 若系统没有将 uv 的工具目录加入 `PATH`，先修正该环境配置后再安装插件。
