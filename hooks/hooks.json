@@ -1,0 +1,40 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mempalace-codex-hook SessionStart",
+            "timeout": 5,
+            "statusMessage": "MemPalace: preparing session archive"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mempalace-codex-hook Stop",
+            "timeout": 30,
+            "statusMessage": "MemPalace: archiving conversation"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mempalace-codex-hook PreCompact",
+            "timeout": 30,
+            "statusMessage": "MemPalace: archiving before compaction"
+          }
+        ]
+      }
+    ]
+  }
+}

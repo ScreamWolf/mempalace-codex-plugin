@@ -1,0 +1,12 @@
+# This file is a template. Copy it outside the repository before editing.
+
+[archive]
+# Number of user turns accumulated before a normal Stop-triggered archive.
+# PreCompact always triggers the official transcript-mine path.
+interval_user_turns = 15
+
+# Optional exact project roots. A matching root (or child directory) writes
+# raw transcripts to sessions_<wing>; unmatched/projectless sessions retain
+# upstream behavior and write to sessions.
+[projects]
+# "/Users/you/apps/example" = "example"

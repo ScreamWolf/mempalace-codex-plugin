@@ -1,0 +1,37 @@
+{
+  "name": "mempalace-codex-plugin",
+  "version": "0.1.0+codex.20260829040146",
+  "description": "Independent MemPalace integration for Codex.",
+  "author": {
+    "name": "ScreamWolf",
+    "url": "https://github.com/ScreamWolf"
+  },
+  "homepage": "https://github.com/ScreamWolf/mempalace-codex-plugin",
+  "repository": "https://github.com/ScreamWolf/mempalace-codex-plugin",
+  "license": "MIT",
+  "keywords": [
+    "mempalace",
+    "codex",
+    "memory",
+    "hooks",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "MemPalace for Codex",
+    "shortDescription": "MemPalace integration for Codex.",
+    "longDescription": "Maintains MemPalace MCP access, Codex raw-session archiving, and scoped memory guidance.",
+    "developerName": "ScreamWolf",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Search the current project memory before continuing prior work.",
+      "Save this confirmed project decision to MemPalace."
+    ]
+  }
+}

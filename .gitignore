@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local plugin runtime state and developer configuration
+.local/
+diagnostics/
+.diagnostics/
