@@ -11,7 +11,7 @@ This repository is the Codex-specific integration layer for MemPalace. It replac
 
 ## Curated memory rooms
 
-For this project's MemPalace wing, use only these rooms:
+This project's current MemPalace wing is `mempalace_codex_plugin`. Use only these rooms:
 
 - `architecture` — confirmed plugin boundaries, integration decisions, and configuration contracts.
 - `compatibility` — verified upstream/Codex versions, compatibility findings, and intentional divergences.
