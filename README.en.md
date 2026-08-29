@@ -82,6 +82,12 @@ Optional configuration lives at `~/.config/mempalace-codex/config.toml`:
 # Number of user turns accumulated after Stop before archiving; defaults to 15.
 interval_user_turns = 15
 
+[mcp]
+# Enable only when MemPalace uses a service backend that coordinates concurrent
+# writers, such as Qdrant or pgvector. The upstream MCP still enforces one
+# writer for local Chroma-style backends.
+allow_peer_writer = false
+
 [projects]
 # A match for this directory or one of its children archives raw sessions to sessions_my-app.
 "/Users/you/apps/my-app" = "my-app"
@@ -99,6 +105,11 @@ Temporarily override the archive interval with an environment variable:
 ```bash
 MEMPALACE_CODEX_ARCHIVE_INTERVAL=5
 ```
+
+When multiple Codex projects share one Qdrant / pgvector palace, set
+`[mcp].allow_peer_writer` to `true`. The plugin injects the corresponding
+upstream environment variable only when it launches `mempalace-mcp`; the
+default remains `false`, preserving official single-writer behavior.
 
 ## License
 

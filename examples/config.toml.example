@@ -5,6 +5,12 @@
 # PreCompact always triggers the official transcript-mine path.
 interval_user_turns = 15
 
+# Allow multiple Codex MCP processes to write concurrently only when the
+# configured MemPalace backend coordinates cross-process writers (Qdrant or
+# pgvector). The upstream MCP still rejects this override for local backends.
+[mcp]
+allow_peer_writer = false
+
 # Optional exact project roots. A matching root (or child directory) writes
 # raw transcripts to sessions_<wing>; unmatched/projectless sessions retain
 # upstream behavior and write to sessions.

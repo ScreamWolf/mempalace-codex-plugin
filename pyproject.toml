@@ -10,6 +10,7 @@ dependencies = ["mempalace"]
 
 [project.scripts]
 mempalace-codex-hook = "mempalace_codex.hook:main"
+mempalace-codex-mcp = "mempalace_codex.mcp_launcher:main"
 
 [build-system]
 requires = ["hatchling"]

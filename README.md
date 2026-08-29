@@ -82,6 +82,11 @@ codex plugin add mempalace-codex-plugin@mempalace-codex-plugin
 # Stop 后累计多少个用户回合才归档；默认值为 15。
 interval_user_turns = 15
 
+[mcp]
+# 仅在 MemPalace 使用 Qdrant 或 pgvector 等服务端协调并发写入的后端时开启。
+# 本地 Chroma 等后端仍会由官方 MCP 强制保持单 writer。
+allow_peer_writer = false
+
 [projects]
 # 命中此目录或其子目录时，原始会话归档到 sessions_my-app。
 "/Users/you/apps/my-app" = "my-app"
@@ -99,6 +104,10 @@ interval_user_turns = 15
 ```bash
 MEMPALACE_CODEX_ARCHIVE_INTERVAL=5
 ```
+
+多个 Codex 项目共用同一个 Qdrant / pgvector palace 时，将 `[mcp]` 的
+`allow_peer_writer` 设为 `true`。插件启动官方 `mempalace-mcp` 前才会注入
+对应的官方环境变量；默认值为 `false`，保持官方单 writer 行为。
 
 ## 许可
 

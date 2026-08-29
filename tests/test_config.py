@@ -37,3 +37,14 @@ class ArchiveSettingsTests(unittest.TestCase):
         self.assertEqual(settings.project_wing_for_cwd("/work/app/src"), "app")
         self.assertEqual(settings.project_wing_for_cwd("/work/other"), "work")
         self.assertIsNone(settings.project_wing_for_cwd("/elsewhere"))
+
+    def test_peer_writer_requires_explicit_true(self) -> None:
+        self.config.write_text(
+            "[mcp]\nallow_peer_writer = true\n", encoding="utf-8"
+        )
+        self.assertTrue(load_archive_settings(self.config).allow_peer_writer)
+
+        self.config.write_text(
+            "[mcp]\nallow_peer_writer = false\n", encoding="utf-8"
+        )
+        self.assertFalse(load_archive_settings(self.config).allow_peer_writer)
