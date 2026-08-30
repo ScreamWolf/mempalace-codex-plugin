@@ -29,15 +29,6 @@ class ArchiveSettingsTests(unittest.TestCase):
         os.environ[ENV_ARCHIVE_INTERVAL] = "3"
         self.assertEqual(load_archive_settings(self.config).interval_user_turns, 3)
 
-    def test_project_mapping_uses_longest_matching_root(self) -> None:
-        self.config.write_text(
-            '[projects]\n"/work" = "work"\n"/work/app" = "app"\n', encoding="utf-8"
-        )
-        settings = load_archive_settings(self.config)
-        self.assertEqual(settings.project_wing_for_cwd("/work/app/src"), "app")
-        self.assertEqual(settings.project_wing_for_cwd("/work/other"), "work")
-        self.assertIsNone(settings.project_wing_for_cwd("/elsewhere"))
-
     def test_peer_writer_requires_explicit_true(self) -> None:
         self.config.write_text(
             "[mcp]\nallow_peer_writer = true\n", encoding="utf-8"

@@ -27,7 +27,7 @@
 | 生命周期 | 只处理 `SessionStart`、`Stop`、`PreCompact`；不处理 `SessionEnd`。 |
 | transcript 解析 | 适配当前 Codex JSONL，仅保存用户文本和最终助手文本，并过滤两种已确认的 Codex 注入标记。 |
 | Stop 周期 | 默认每 15 个用户回合，可由插件配置或环境变量覆盖。 |
-| 项目隔离 | 可选 `[projects]` 映射把原始归档写入 `sessions_<项目名>`；未配置时保持官方 `sessions`。 |
+| 自动归档位置 | 原始会话固定写入 `sessions` wing；自动 diary checkpoint 写入该 wing 的 `diary` room。 |
 
 ## 安装
 
@@ -99,18 +99,9 @@ interval_user_turns = 15
 # 仅在 MemPalace 使用 Qdrant 或 pgvector 等服务端协调并发写入的后端时开启。
 # 本地 Chroma 等后端仍会由官方 MCP 强制保持单 writer。
 allow_peer_writer = false
-
-[projects]
-# 命中此目录或其子目录时，原始会话归档到 sessions_my-app。
-"/Users/you/apps/my-app" = "my-app"
 ```
 
-项目映射以最长目录前缀匹配。命中时：
-
-- 原始会话写入 `sessions_<项目名>`；
-- 自动 diary checkpoint 写入该项目 wing。
-
-没有映射、无项目会话或无法取得工作目录时，原始会话保持官方默认的 `sessions` wing。显式 checkpoint 仍由 Codex 通过 MemPalace MCP 写入你指定的 wing / room，不受映射限制。
+Hook 不根据工作目录、Codex Project 或 Git worktree 推断项目。原始会话统一写入 `sessions` wing；自动 diary checkpoint 写入该 wing 的 `diary` room。显式 checkpoint 仍由 Codex 通过 MemPalace MCP 写入你指定的 wing / room，不受自动归档位置限制。MemPalace 独立的 daily 摘要文件导入不属于这个 Hook，行为不变。
 
 可用环境变量临时覆盖归档间隔：
 

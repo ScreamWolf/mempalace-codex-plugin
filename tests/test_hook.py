@@ -4,7 +4,11 @@ import subprocess
 import sys
 import tempfile
 import textwrap
+from types import SimpleNamespace
 import unittest
+from unittest import mock
+
+from mempalace_codex import hook
 from mempalace_codex.hook import HANDLERS, _current_diary_messages, _current_user_count
 
 
@@ -23,6 +27,58 @@ class HookTests(unittest.TestCase):
             transcript.write_text("\n".join(json.dumps(record, ensure_ascii=False) for record in records), encoding="utf-8")
             self.assertEqual(_current_user_count(str(transcript), "session"), 2)
             self.assertEqual(_current_diary_messages(str(transcript)), ["第一条", "第二条"])
+
+    def test_stop_routes_archive_and_diary_to_sessions(self) -> None:
+        import mempalace.hooks_cli as official
+
+        config = SimpleNamespace(
+            hooks_auto_save=True,
+            hook_silent_save=False,
+            hook_desktop_toast=False,
+        )
+        settings = SimpleNamespace(interval_user_turns=1)
+        parsed = {
+            "session_id": "session-1",
+            "transcript_path": "/tmp/session.jsonl",
+            "stop_hook_active": False,
+        }
+
+        with tempfile.TemporaryDirectory() as temporary, \
+            mock.patch("mempalace.config.MempalaceConfig", return_value=config), \
+            mock.patch.object(official, "_palace_root_exists", return_value=True), \
+            mock.patch.object(official, "_parse_harness_input", return_value=parsed), \
+            mock.patch.object(official, "STATE_DIR", Path(temporary)), \
+            mock.patch.object(official, "_save_diary_direct", return_value={"count": 1}) as save_diary, \
+            mock.patch.object(official, "_output"), \
+            mock.patch.object(hook, "_current_user_count", return_value=1), \
+            mock.patch.object(hook, "load_archive_settings", return_value=settings), \
+            mock.patch.object(hook, "_spawn_official_style_mine") as spawn_mine:
+            hook.hook_stop({"cwd": "/tmp/worktree/project"})
+
+        save_diary.assert_called_once_with(
+            "/tmp/session.jsonl",
+            "session-1",
+            wing="sessions",
+            toast=False,
+            agent_name="codex",
+        )
+        spawn_mine.assert_called_once_with("/tmp/session.jsonl", "sessions")
+
+    def test_precompact_routes_archive_to_sessions(self) -> None:
+        import mempalace.hooks_cli as official
+
+        config = SimpleNamespace(hooks_auto_save=True)
+        parsed = {"transcript_path": "/tmp/session.jsonl"}
+
+        with mock.patch("mempalace.config.MempalaceConfig", return_value=config), \
+            mock.patch.object(official, "_palace_root_exists", return_value=True), \
+            mock.patch.object(official, "_parse_harness_input", return_value=parsed), \
+            mock.patch.object(official, "_mine_sync"), \
+            mock.patch.object(official, "_output"), \
+            mock.patch.object(hook, "_spawn_official_style_mine") as spawn_mine:
+            hook.hook_precompact({"cwd": "/tmp/worktree/project"})
+
+        spawn_mine.assert_called_once_with("/tmp/session.jsonl", "sessions")
 
     def test_main_emits_one_json_document_for_every_lifecycle_hook(self) -> None:
         script = textwrap.dedent(

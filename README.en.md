@@ -27,7 +27,7 @@ It has been tested with MemPalace `v3.8.0`. It replaces the upstream Codex plugi
 | Lifecycle | Handles `SessionStart`, `Stop`, and `PreCompact` only; does not handle `SessionEnd`. |
 | Transcript parsing | Supports the current Codex JSONL format, saves only user and final assistant text, and filters two confirmed Codex injection markers. |
 | Stop cadence | Every 15 user turns by default; configurable through plugin settings or an environment variable. |
-| Project isolation | An optional `[projects]` mapping routes raw archives to `sessions_<project-name>`; without it, archives remain in upstream `sessions`. |
+| Automatic archive location | Raw sessions always go to the `sessions` wing; automatic diary checkpoints use that wing's `diary` room. |
 
 ## Install
 
@@ -102,18 +102,9 @@ interval_user_turns = 15
 # writers, such as Qdrant or pgvector. The upstream MCP still enforces one
 # writer for local Chroma-style backends.
 allow_peer_writer = false
-
-[projects]
-# A match for this directory or one of its children archives raw sessions to sessions_my-app.
-"/Users/you/apps/my-app" = "my-app"
 ```
 
-Project mappings use the longest matching directory prefix. When one matches:
-
-- Raw sessions are written to `sessions_<project-name>`.
-- The automatic diary checkpoint is written to that project wing.
-
-Without a mapping, for projectless sessions, or when no working directory is available, raw sessions retain the upstream default `sessions` wing. Explicit checkpoints still go to the wing / room you specify through the MemPalace MCP and are not constrained by this mapping.
+The Hook does not infer a project from the working directory, Codex Project, or Git worktree. Raw sessions always go to the `sessions` wing, and automatic diary checkpoints use that wing's `diary` room. Explicit checkpoints still go to the wing / room you specify through the MemPalace MCP and are not constrained by the automatic archive location. MemPalace's separate daily-summary file ingestion is not part of this Hook and is unchanged.
 
 Temporarily override the archive interval with an environment variable:
 

@@ -11,11 +11,12 @@ This repository is the Codex-specific integration layer for MemPalace. It replac
 
 ## Curated memory rooms
 
-This project's current MemPalace wing is `mempalace_codex_plugin`. Use only these rooms:
+This project's current MemPalace wing is `mempalace_codex_plugin`. Use only these rooms for curated memory:
 
 - `architecture` — confirmed plugin boundaries, integration decisions, and configuration contracts.
 - `compatibility` — verified upstream/Codex versions, compatibility findings, and intentional divergences.
-- `diary` — automatic verbatim session archives for traceability; do not use it as curated project guidance.
+
+Historical automatic diary entries may exist under the project wing, but they are traceability only. New Hook checkpoints use `sessions/diary` and are not curated project guidance.
 
 Create curated memories only for durable, confirmed facts. Current repository files and explicit user instructions take precedence over recalled memory.
 
@@ -23,11 +24,11 @@ Create curated memories only for durable, confirmed facts. Current repository fi
 
 - The MemPalace CLI/MCP owns storage, search, checkpoints, and knowledge-graph behavior.
 - This plugin owns Codex MCP registration, plugin-provided lifecycle wiring, raw-session archive adaptation, installation, and Codex-specific guidance.
-- Custom hooks adapt current Codex transcripts and archive only verbatim user and final assistant messages. With a private project mapping they use `sessions_<project>`; without one they preserve the upstream `sessions` wing. They do not create curated project memory.
+- Custom hooks adapt current Codex transcripts and archive only verbatim user and final assistant messages in the upstream `sessions` wing. Automatic diary checkpoints use that wing's `diary` room. They do not create curated project memory.
 
 ## Public-repository boundaries
 
-- Never commit user paths, project mappings, tokens, API keys, transcript content, hook state, or generated user configuration.
+- Never commit user paths, tokens, API keys, transcript content, hook state, or generated user configuration.
 - Keep examples generic and use placeholders.
 - Do not modify or copy upstream's Codex hook implementation without an explicit, tested compatibility reason.
 
