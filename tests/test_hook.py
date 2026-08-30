@@ -2,6 +2,8 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from io import StringIO
+from unittest.mock import patch
 from mempalace_codex.hook import HANDLERS, _current_diary_messages, _current_user_count
 
 
@@ -20,3 +22,21 @@ class HookTests(unittest.TestCase):
             transcript.write_text("\n".join(json.dumps(record, ensure_ascii=False) for record in records), encoding="utf-8")
             self.assertEqual(_current_user_count(str(transcript), "session"), 2)
             self.assertEqual(_current_diary_messages(str(transcript)), ["第一条", "第二条"])
+
+    def test_main_emits_one_json_document_when_upstream_handler_outputs(self) -> None:
+        import mempalace.hooks_cli as official
+        from mempalace_codex import hook
+
+        def emitting_handler(_: dict[str, object]) -> None:
+            official._output({"systemMessage": "archived"})
+
+        stdout = StringIO()
+        with (
+            patch.dict(HANDLERS, {"Stop": emitting_handler}),
+            patch.object(hook.sys, "argv", ["mempalace-codex-hook", "Stop"]),
+            patch.object(hook.sys, "stdin", StringIO("{}")),
+            patch("sys.stdout", stdout),
+        ):
+            self.assertEqual(hook.main(), 0)
+
+        self.assertEqual(json.loads(stdout.getvalue()), {"systemMessage": "archived"})

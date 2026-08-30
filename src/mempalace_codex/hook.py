@@ -117,13 +117,29 @@ HANDLERS = {"SessionStart": hook_session_start, "Stop": hook_stop, "PreCompact":
 def main() -> int:
     if len(sys.argv) != 2 or sys.argv[1] not in HANDLERS:
         return 2
+    output: dict[object, object] = {}
     try:
         payload = json.load(sys.stdin)
         if isinstance(payload, dict):
-            HANDLERS[sys.argv[1]](payload)
+            # Upstream hook helpers write their response directly to stdout.  A
+            # Codex command hook must instead emit exactly one JSON document, so
+            # capture that response and serialize it once after the handler.
+            import mempalace.hooks_cli as official
+
+            original_output = official._output
+
+            def capture_output(data: dict[object, object]) -> None:
+                nonlocal output
+                output = data
+
+            official._output = capture_output
+            try:
+                HANDLERS[sys.argv[1]](payload)
+            finally:
+                official._output = original_output
     except Exception:
         pass  # Hooks are deliberately fail-open; queued work is retried later.
-    print("{}")
+    print(json.dumps(output, ensure_ascii=False))
     return 0
 
 
