@@ -74,6 +74,18 @@ codex plugin add mempalace-codex-plugin@mempalace-codex-plugin
 
 也可在 Codex Desktop 的插件目录中选择该 marketplace 安装。首次启用时，Codex 会要求审阅并信任插件提供的 Hook；这是预期的安全边界。安装或升级后，请新开一个任务，使 MCP 和 skills 从新插件副本加载。
 
+## 升级
+
+Codex 插件副本与 `uv tool` 中的 Hook runner 是两个独立安装项。只重新安装
+Codex 插件不会刷新 runner；升级时应依次更新两者：
+
+```bash
+uv tool install --force --refresh "git+https://github.com/ScreamWolf/mempalace-codex-plugin.git@main"
+codex plugin add mempalace-codex-plugin@mempalace-codex-plugin
+```
+
+完成后新开一个任务验证 `SessionStart`，并让后续 MCP、skills 与 Hook 都从新版本启动。
+
 ## 配置
 
 可选配置位于 `~/.config/mempalace-codex/config.toml`：

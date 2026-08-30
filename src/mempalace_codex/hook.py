@@ -118,6 +118,7 @@ def main() -> int:
     if len(sys.argv) != 2 or sys.argv[1] not in HANDLERS:
         return 2
     output: dict[object, object] = {}
+    original_output = None
     try:
         payload = json.load(sys.stdin)
         if isinstance(payload, dict):
@@ -139,7 +140,15 @@ def main() -> int:
                 official._output = original_output
     except Exception:
         pass  # Hooks are deliberately fail-open; queued work is retried later.
-    print(json.dumps(output, ensure_ascii=False))
+    # Use the upstream writer after restoring it.  MemPalace's save path may
+    # import ``mempalace.mcp_server``, which redirects fd 1 to stderr while
+    # retaining the original hook response fd.  The upstream writer knows how
+    # to recover that fd; a regular ``print`` here can therefore put the only
+    # response on stderr and leave Codex with no JSON response.
+    if original_output is None:
+        print(json.dumps(output, ensure_ascii=False))
+    else:
+        original_output(output)
     return 0
 
 

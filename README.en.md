@@ -74,6 +74,20 @@ codex plugin add mempalace-codex-plugin@mempalace-codex-plugin
 
 You can also install it from this marketplace in the Codex Desktop Plugins directory. At first enablement, Codex will ask you to review and trust the plugin Hooks; this is an expected security boundary. After installation or an upgrade, start a new task so MCP and skills load from the new plugin copy.
 
+## Upgrade
+
+The Codex plugin copy and the Hook runner installed as a `uv tool` are separate
+installations. Reinstalling only the Codex plugin does not refresh the runner;
+update both when upgrading:
+
+```bash
+uv tool install --force --refresh "git+https://github.com/ScreamWolf/mempalace-codex-plugin.git@main"
+codex plugin add mempalace-codex-plugin@mempalace-codex-plugin
+```
+
+Then start a new task to verify `SessionStart` and load the updated MCP, skills,
+and Hooks.
+
 ## Configuration
 
 Optional configuration lives at `~/.config/mempalace-codex/config.toml`:
