@@ -8,7 +8,7 @@
 
 [MemPalace](https://github.com/MemPalace/mempalace) 面向 Codex 的独立适配插件。MemPalace 负责存储、检索、checkpoint 和知识图谱；本项目只提供 Codex 的 MCP 注册、会话归档和使用规则。
 
-目前已在 MemPalace `v3.8.0` 上完成测试。它用于替代官方 Codex 插件；同一 Codex profile 中只能启用其中之一。
+目前已在 MemPalace `v3.9.0` 上完成测试。它用于替代官方 Codex 插件；同一 Codex profile 中只能启用其中之一。
 
 ## 适配范围
 
@@ -22,7 +22,7 @@
 
 | 项目 | 本插件的行为 |
 | --- | --- |
-| MCP 与通用 skills | 复用 MemPalace 的 MCP 接口和通用 skills；当前在 `v3.8.0` 上测试。 |
+| MCP 与通用 skills | 复用 MemPalace 的 MCP 接口和通用 skills；当前在 `v3.9.0` 上测试。 |
 | Hook 注册 | 使用插件的 `hooks/hooks.json`；不使用用户级 Hook。 |
 | 生命周期 | 只处理 `SessionStart`、`Stop`、`PreCompact`；不处理 `SessionEnd`。 |
 | transcript 解析 | 适配当前 Codex JSONL，仅保存用户文本和最终助手文本，并过滤两种已确认的 Codex 注入标记。 |

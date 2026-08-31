@@ -8,7 +8,7 @@
 
 An independent Codex adapter for [MemPalace](https://github.com/MemPalace/mempalace). MemPalace is responsible for storage, search, checkpoints, and the knowledge graph; this project provides only Codex MCP registration, session archiving, and usage guidance.
 
-It has been tested with MemPalace `v3.8.0`. It replaces the upstream Codex plugin; enable only one of them in the same Codex profile.
+It has been tested with MemPalace `v3.9.0`. It replaces the upstream Codex plugin; enable only one of them in the same Codex profile.
 
 ## Scope
 
@@ -22,7 +22,7 @@ It has been tested with MemPalace `v3.8.0`. It replaces the upstream Codex plugi
 
 | Area | This plugin |
 | --- | --- |
-| MCP and generic skills | Reuses MemPalace MCP and generic skills; tested with `v3.8.0`. |
+| MCP and generic skills | Reuses MemPalace MCP and generic skills; tested with `v3.9.0`. |
 | Hook registration | Uses the plugin's `hooks/hooks.json`; does not use user-level Hooks. |
 | Lifecycle | Handles `SessionStart`, `Stop`, and `PreCompact` only; does not handle `SessionEnd`. |
 | Transcript parsing | Supports the current Codex JSONL format, saves only user and final assistant text, and filters two confirmed Codex injection markers. |
