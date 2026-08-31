@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { file = "LICENSE" }
 authors = [{ name = "ScreamWolf" }]
-dependencies = ["mempalace"]
+dependencies = ["mempalace>=3.8.0,<3.10.0"]
 
 [project.scripts]
 mempalace-codex-hook = "mempalace_codex.hook:main"

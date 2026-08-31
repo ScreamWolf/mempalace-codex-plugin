@@ -930,7 +930,7 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "mempalace" }]
+requires-dist = [{ name = "mempalace", specifier = ">=3.8.0,<3.10.0" }]
 
 [[package]]
 name = "mmh3"
