@@ -2,12 +2,12 @@
 
 This repository is the Codex-specific integration layer for MemPalace. It replaces the upstream MemPalace Codex plugin when installed; never enable both for the same Codex profile.
 
-## Compatibility baseline
+## Compatibility maintenance
 
 - Track the latest official **stable release** of MemPalace, not its `develop` branch.
-- The adapter is currently tested against `v3.8.0`; this is a test baseline, not a package-version constraint.
-- Keep `.mcp.json` and the copied upstream skills behaviorally aligned with the tested release, and re-test after upstream upgrades.
+- Keep `.mcp.json` and copied upstream skills behaviorally aligned with the chosen upstream release, and re-test after upstream upgrades.
 - Record each intentional divergence from upstream in the README and tests.
+- Store the currently verified upstream version and other changeable compatibility facts in the project knowledge graph, with test evidence in the `compatibility` drawer.
 
 ## Curated memory rooms
 
@@ -16,7 +16,7 @@ This project's current MemPalace wing is `mempalace_codex_plugin`. Use only thes
 - `architecture` — confirmed plugin boundaries, integration decisions, and configuration contracts.
 - `compatibility` — verified upstream/Codex versions, compatibility findings, and intentional divergences.
 
-Historical automatic diary entries may exist under the project wing, but they are traceability only. New Hook checkpoints use `sessions/diary` and are not curated project guidance.
+Historical automatic diary entries may exist under the project wing, but they are traceability only. New Hook checkpoints are not curated project guidance.
 
 Create curated memories only for durable, confirmed facts. Current repository files and explicit user instructions take precedence over recalled memory.
 
@@ -24,7 +24,7 @@ Create curated memories only for durable, confirmed facts. Current repository fi
 
 - The MemPalace CLI/MCP owns storage, search, checkpoints, and knowledge-graph behavior.
 - This plugin owns Codex MCP registration, plugin-provided lifecycle wiring, raw-session archive adaptation, installation, and Codex-specific guidance.
-- Custom hooks adapt current Codex transcripts and archive only verbatim user and final assistant messages in the upstream `sessions` wing. Automatic diary checkpoints use that wing's `diary` room. They do not create curated project memory.
+- Custom hooks adapt Codex transcripts for upstream-style raw-session archiving. Automatic checkpoints do not create curated project memory.
 
 ## Public-repository boundaries
 
@@ -36,8 +36,8 @@ Create curated memories only for durable, confirmed facts. Current repository fi
 
 - Treat Codex hook payloads and transcripts as versioned, untrusted input.
 - Do not assume a payload contains `transcript_path`; validate against real fixtures.
-- Preserve the upstream lifecycle semantics: `SessionStart` initializes routing, `Stop` applies the configured threshold and invokes the upstream-style diary/archive path, and `PreCompact` starts an upstream-style archive pass.
-- Keep the three lifecycle registrations in `hooks/hooks.json`; do not add `SessionEnd`, a user-level hook registration, a private queue, or a private cursor unless a demonstrated upstream incompatibility requires it.
+- Preserve upstream lifecycle semantics, including routing initialization, threshold-based archival, and archival before compaction.
+- Change lifecycle registration or introduce private archival state only for a demonstrated upstream incompatibility, with focused compatibility tests.
 - Hook failures must not block or alter the Codex conversation.
 
 ## Quality bar
