@@ -1,6 +1,6 @@
 {
   "name": "mempalace-codex-plugin",
-  "version": "0.1.0+codex.20260830171352",
+  "version": "0.1.0+codex.20260904222117",
   "description": "Independent MemPalace integration for Codex.",
   "author": {
     "name": "ScreamWolf",
@@ -21,7 +21,7 @@
   "interface": {
     "displayName": "MemPalace for Codex",
     "shortDescription": "MemPalace integration for Codex.",
-    "longDescription": "Maintains MemPalace MCP access, Codex raw-session archiving, and scoped memory guidance.",
+    "longDescription": "Maintains MemPalace MCP access, Codex raw-session archiving, and the five upstream MemPalace skills.",
     "developerName": "ScreamWolf",
     "category": "Productivity",
     "capabilities": [

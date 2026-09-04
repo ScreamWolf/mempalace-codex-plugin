@@ -6,7 +6,7 @@
 
 </div>
 
-[MemPalace](https://github.com/MemPalace/mempalace) 面向 Codex 的独立适配插件。MemPalace 负责存储、检索、checkpoint 和知识图谱；本项目只提供 Codex 的 MCP 注册、会话归档和使用规则。
+[MemPalace](https://github.com/MemPalace/mempalace) 面向 Codex 的独立适配插件。MemPalace 负责存储、检索、checkpoint 和知识图谱；本项目提供 Codex 的 MCP 注册、会话归档和官方 skills。
 
 目前已在 MemPalace `v3.9.0` 上完成测试。它用于替代官方 Codex 插件；同一 Codex profile 中只能启用其中之一。
 
@@ -16,7 +16,7 @@
 - 由插件自身提供 `SessionStart`、`Stop`、`PreCompact` 三个 Hook。
 - 针对当前 Codex JSONL，归档逐字的用户消息和最终助手回复；跳过系统消息、工具协议与已确认的 Codex 注入内容（`<recommended_plugins>`、`<skill>`）。
 - 正常 `Stop` 按用户回合数归档，默认 15；`PreCompact` 无条件启动一次归档。
-- 保留官方五个 skills：`help`、`init`、`mine`、`search`、`status`，并增加 `mempalace-codex`，说明项目级检索、显式 checkpoint 与原始会话归档的边界。
+- 保留官方五个 skills：`help`、`init`、`mine`、`search`、`status`。普通召回、保存和知识图谱维护遵循用户自己的工作流与本地约定。
 
 ## 与官方插件的差异
 

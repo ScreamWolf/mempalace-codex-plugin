@@ -6,7 +6,7 @@
 
 </div>
 
-An independent Codex adapter for [MemPalace](https://github.com/MemPalace/mempalace). MemPalace is responsible for storage, search, checkpoints, and the knowledge graph; this project provides only Codex MCP registration, session archiving, and usage guidance.
+An independent Codex adapter for [MemPalace](https://github.com/MemPalace/mempalace). MemPalace is responsible for storage, search, checkpoints, and the knowledge graph; this project provides Codex MCP registration, session archiving, and the upstream skills.
 
 It has been tested with MemPalace `v3.9.0`. It replaces the upstream Codex plugin; enable only one of them in the same Codex profile.
 
@@ -16,7 +16,7 @@ It has been tested with MemPalace `v3.9.0`. It replaces the upstream Codex plugi
 - Provides `SessionStart`, `Stop`, and `PreCompact` Hooks through the plugin itself.
 - Archives verbatim user messages and final assistant replies from the current Codex JSONL format; skips system messages, tool protocol, and confirmed Codex-injected content (`<recommended_plugins>` and `<skill>`).
 - Archives on normal `Stop` every 15 user turns by default; `PreCompact` always starts an archive pass.
-- Keeps the five upstream skills—`help`, `init`, `mine`, `search`, and `status`—and adds `mempalace-codex` to explain project-scoped recall, explicit checkpoints, and the boundary around raw-session archives.
+- Keeps the five upstream skills: `help`, `init`, `mine`, `search`, and `status`. Routine recall, saving, and knowledge-graph maintenance follow the user's own workflows and local conventions.
 
 ## Differences from the upstream plugin
 
