@@ -11,10 +11,7 @@ This repository is the Codex-specific integration layer for MemPalace. It replac
 
 ## Curated memory rooms
 
-This project's current MemPalace wing is `mempalace_codex_plugin`. Use only these rooms for curated memory:
-
-- `architecture` — confirmed plugin boundaries, integration decisions, and configuration contracts.
-- `compatibility` — verified upstream/Codex versions, compatibility findings, and intentional divergences.
+This project's current MemPalace wing is `mempalace_codex_plugin`. The KG room registry at `project:mempalace_codex_plugin:memory` is authoritative for curated-memory rooms and their purposes.
 
 Historical automatic diary entries may exist under the project wing, but they are traceability only. New Hook checkpoints are not curated project guidance.
 
